@@ -8,7 +8,8 @@ import base64
 
 def generate_random_file():
     with open("random.txt", "wb") as f:
-        f.write(random.randbytes(1024 * 1024 * 8))
+        for _ in range(1024 * 1024):
+            f.write(random.randbytes(8))
 
 
 def encrypt(filename: str, key: str):
