@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-<h1> File Chunker </h1>
-=======
-    `<h1> File Chunker </h1>`
+File Chunker
 
 ```python
 if __name__ == "__main__":
@@ -11,4 +8,3 @@ if __name__ == "__main__":
     encrypt("random.txt", key)
     decrypt("random.txt", key)
 ```
->>>>>>> 5c157f6 (encryption)
