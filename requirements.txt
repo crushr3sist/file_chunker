@@ -1,0 +1,16 @@
+cryptography==39.0.0
+SQLAlchemy==2.0.7
+concurrent
+sys
+time
+uuid
+os
+hashlib
+threading
+pathlib
+threading 
+timeit
+asyncio
+multiprocessing
+queue 
+enum
