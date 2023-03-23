@@ -1,6 +1,26 @@
+from concurrent.futures import ThreadPoolExecutor
+import sys
+import time
 import uuid
 import os
 import hashlib
+import threading
+import pathlib
+from threading import Thread
+import timeit
+import asyncio
+import multiprocessing
+from queue import Queue
+import enum
+
+
+class ChunkyConfig(enum.Enum):
+    ...
+
+
+class Chunky:
+    def __init__(self, config: ChunkyConfig = None):
+        ...
 
 
 class Chunker:
@@ -11,7 +31,8 @@ class Chunker:
         self.original_file_hash = ""
         self.chunk_file_hashes = []
         self.chunk_file_uid = []
-        self.chunk_amounts = 0
+
+    # def chunk_dir_manager(self) -> bool:
 
     def chunks(self):
         """
@@ -46,7 +67,6 @@ class Chunker:
         """
         _hash = hashlib.sha256()
         with open(self.file_name, "rb") as file:
-
             chunk = 0
             while chunk != b"":
                 chunk = file.read(1024)
@@ -76,10 +96,7 @@ class Chunker:
 
             ccif.write(bytes(str(self.chunk_file_uid), "utf-8"))
 
-    def run(self):
-        """
-        It takes a file, breaks it into chunks, hashes each chunk, and writes the hashes to a file
-        """
+    def generic_run(self):
         self.produce_chunks()
         self.hasher()
         self.write_ccif()
@@ -165,16 +182,12 @@ class Reconstruct:
         """
         _hash = hashlib.sha256()
         with open(f"reconstructed/{self.file_name}", "rb") as file:
-
             chunk = 0
             while chunk != b"":
                 chunk = file.read(1024)
                 _hash.update(chunk)
 
-        if _hash.hexdigest() == self.original_file_hash:
-            return True
-        else:
-            return False
+        return _hash.hexdigest() == self.original_file_hash
 
     def run(self):
         """
@@ -195,13 +208,3 @@ def scan_for_ccif_files():
     for file in os.listdir():
         if file.endswith(".ccif"):
             yield file
-
-
-if __name__ == "__main__":
-
-    chunker = Chunker("<your file name>", 5)
-    chunker.run()
-
-    for file in scan_for_ccif_files():
-        reconstruct_controller = Reconstruct(file)
-        reconstruct_controller.run()
