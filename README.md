@@ -1,5 +1,5 @@
 File Chunker
-
+CCIF = chunk construction information
 ```python
 if __name__ == "__main__":
   
