@@ -1,6 +1,6 @@
 library is supposed to be based around session control.
 
-```
+```python
 import chunky
 
 #the module is used as an object to overarch the other 2 classes

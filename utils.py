@@ -1,9 +1,7 @@
 import random
-from cryptography.fernet import Fernet
+
 import cryptography
-import hashlib
-import secrets
-import base64
+from cryptography.fernet import Fernet
 
 
 def generate_random_file():
